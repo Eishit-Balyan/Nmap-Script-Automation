@@ -1,2 +1,3 @@
 # Nmap-Script-Automation
 This is a simple Bash script made to automate common Nmap scanning tasks while learning basic network reconnaissance. Instead of running multiple Nmap commands manually, the script takes a target and a scan type as input and performs the selected scan automatically.
+The script supports different scan types such as TCP SYN scan, UDP scan, service/version detection, full port scan, and a faster timing-based scan. After the scan is completed, it checks the results to find open ports and suggests or runs basic follow-up enumeration tools based on the services found, such as dirsearch for HTTP, sslscan for HTTPS, and FTP-related Nmap scripts.
