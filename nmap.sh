@@ -1,9 +1,4 @@
 #!/bin/bash
-
-# ethical practises:
-# scan only systems you own or have permission for
-# random scanning can be illegal and cause trouble
-
 target=$1
 scan_type=$2
 output="scan.gnmap"
@@ -17,49 +12,34 @@ fi
 
 echo "target: $target"
 echo "scan type: $scan_type"
-
-# choose scan based on user input
-# different scans exist for different purposes
-
 case "$scan_type" in
 
     tcp)
         # TCP SYN scan
-        # sends SYN packets only (half open scan)
-        # fast and commonly used as first scan
-        # needs root privileges
         echo "running TCP SYN scan"
         sudo nmap -sS -T3 -oG $output $target
         ;;
 
     udp)
         # UDP scan
-        # used to find UDP services like DNS, SNMP etc
-        # very slow compared to TCP scans
         echo "running UDP scan (can take time)"
         sudo nmap -sU -T3 -oG $output $target
         ;;
 
     version)
         # service and version detection
-        # helps identify software versions
-        # useful for vulnerability discovery
         echo "running version detection scan"
         nmap -sV -T3 -oG $output $target
         ;;
 
     full)
         # full port scan
-        # scans all 65535 TCP ports
-        # useful when services run on uncommon ports
         echo "running full port scan"
         sudo nmap -p- -T3 -oG $output $target
         ;;
 
     time)
         # timing scan
-        # -T4 makes scan faster but noisier
-        # more likely to be detected
         echo "running fast timing scan"
         sudo nmap -T4 -oG $output $target
         ;;
@@ -72,9 +52,6 @@ esac
 
 echo "scan finished"
 echo "checking open ports"
-
-# parse grepable nmap output
-# only open ports are considered
 
 grep "Ports:" $output | tr ',' '\n' | while read line
 do
